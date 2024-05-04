@@ -16,10 +16,21 @@ public class SP_theo_The_Loai extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String maTheLoai_raw = request.getParameter("maTheLoai");
-        String maTheLoai = String.valueOf(maTheLoai_raw);
-        SanPhamDAO sanPhamDAO3 = new SanPhamDAO();
-        ArrayList<SanPham> arrayList = sanPhamDAO3.getByMaTheLoai(maTheLoai);
-        request.setAttribute("SPbymaTheLoai", arrayList);
+        String maTheLoai;
+
+        try{
+            maTheLoai = String.valueOf(maTheLoai_raw);
+            SanPhamDAO dao = new SanPhamDAO();
+            if(maTheLoai == null || maTheLoai.equals("") ){
+                ArrayList<SanPham> ketqua = dao.selectAll();
+                request.setAttribute("SPbymaTheLoai", ketqua);
+            }else {
+                ArrayList<SanPham> ketqua = dao.getByMaTheLoai(maTheLoai);
+                request.setAttribute("SPbymaTheLoai", ketqua);
+            }
+        } catch (NumberFormatException e) {
+
+        }
         request.getRequestDispatcher("/sanphamJSP/dsSanPham.jsp").forward(request, response);
     }
 
@@ -34,11 +45,11 @@ public class SP_theo_The_Loai extends HttpServlet {
         doGet(request, response);
     }
 
-    private void dsSanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String maTheLoai_raw = request.getParameter("maTheLoai");
-        SanPhamDAO sanPhamDAO = new SanPhamDAO();
-        ArrayList<SanPham> arrayList = sanPhamDAO.getByMaTheLoai(maTheLoai_raw);
-        request.setAttribute("SPbymaTheLoai", arrayList);
-        request.getRequestDispatcher("/sanphamJSP/dsSanPham.jsp").forward(request, response);
-    }
+//    private void dsSanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        String maTheLoai_raw = request.getParameter("maTheLoai");
+//        SanPhamDAO sanPhamDAO = new SanPhamDAO();
+//        ArrayList<SanPham> arrayList = sanPhamDAO.getByMaTheLoai(maTheLoai_raw);
+//        request.setAttribute("SPbymaTheLoai", arrayList);
+//        request.getRequestDispatcher("/sanphamJSP/dsSanPham.jsp").forward(request, response);
+//    }
 }

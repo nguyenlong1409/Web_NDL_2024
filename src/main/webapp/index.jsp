@@ -59,6 +59,7 @@
                             ArrayList<TheLoai> arrayList = theLoaiDAO.selectAll();
                             request.setAttribute("arrayList", arrayList);
                         %>
+                        <li><a class="dropdown-item" href="sp-the-loai?maTheLoai=${theLoaiDao.maTheLoai}">Tất cả</a></li>
                         <c:forEach items="${requestScope.arrayList}" var="theLoaiDao">
                             <li><a class="dropdown-item" href="sp-the-loai?maTheLoai=${theLoaiDao.maTheLoai}">${theLoaiDao.tenTheLoai}</a></li>
                         </c:forEach>
@@ -95,7 +96,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Thông báo</a></li>
-                        <li><a class="dropdown-item" href="san-pham?hanhDongSP=quan-ly-san-pham">Quản lý sản phẩm</a></li>
+<%--                        <li><a class="dropdown-item" href="san-pham?hanhDongSP=quan-ly-san-pham">Quản lý sản phẩm</a></li>--%>
+                        <li><a class="dropdown-item" href="sanphamJSP/quanLySP.jsp">Quản lý sản phẩm</a></li>
                         <li><a class="dropdown-item" href="khachhangJsp/thayDoiThongTin.jsp">Thay đổi thông tin</a></li>
                         <li><a class="dropdown-item" href="khachhangJsp/doiMatKhau.jsp">Đổi mật khẩu</a></li>
                         <li>

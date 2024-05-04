@@ -21,18 +21,12 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-<%
-    String url1 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
-                  + request.getContextPath();
-%>
-<%--<div class="all-classes-container">--%>
-<%--    <form class="form" action="<%=url1%>/san-pham" method="post">--%>
-<%--        <input type="hidden" name="hanhDongSP" value="danh-sach-san-pham"/>--%>
-<%--        <input class="btn btn-primary form-control" type="submit" value="Thông tin sản phẩm"--%>
-<%--               name="submit" id="submit"/>--%>
-<%--        </a> <br>--%>
-<%--</div>--%>
 
+<%
+    SanPhamDAO sanPhamDAO2 = new SanPhamDAO();
+    ArrayList<SanPham> arrayList = sanPhamDAO2.selectAll();
+    request.setAttribute("danhSach", arrayList);
+%>
 
 <h3>Thông tin tất cả sản phẩm</h3>
 <h5><a href="themSanPham.jsp">Thêm sản phẩm</a> </h5>
@@ -53,20 +47,20 @@
         <th>Mô tả</th>
     </tr>
     </thead>
-    <c:forEach items="${requestScope.danhSach}" var="sanPhamDAO2">
-        <c:set var="maSanPham" value="${sanPhamDAO.maSanPham}"/>
+    <c:forEach items="${requestScope.danhSach}" var="sp">
+        <c:set var="maSanPham" value="${sp.maSanPham}"/>
         <tr>
             <td>${maSanPham}</td>
-            <td>${sanPhamDAO2.tenSanPham}</td>
-            <td>${sanPhamDAO2.maTacGia}</td>
-            <td>${sanPhamDAO2.namXuatBan}</td>
-            <td>${sanPhamDAO2.giaNhap}</td>
-            <td>${sanPhamDAO2.giaGoc}</td>
-            <td>${sanPhamDAO2.giaBan}</td>
-            <td>${sanPhamDAO2.soLuong}</td>
-            <td>${sanPhamDAO2.theLoai.tenTheLoai}</td>
-            <td>${sanPhamDAO2.moTa}</td>
-            <td>${sanPhamDAO2.ngonNgu}</td>
+            <td>${sp.tenSanPham}</td>
+            <td>${sp.maTacGia}</td>
+            <td>${sp.namXuatBan}</td>
+            <td>${sp.giaNhap}</td>
+            <td>${sp.giaGoc}</td>
+            <td>${sp.giaBan}</td>
+            <td>${sp.soLuong}</td>
+            <td>${sp.theLoai.tenTheLoai}</td>
+            <td>${sp.moTa}</td>
+            <td>${sp.ngonNgu}</td>
         </tr>
     </c:forEach>
 </table>

@@ -27,16 +27,17 @@ public class SanPhamController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         String hanhDongSP = request.getParameter("hanhDongSP");
         if (hanhDongSP.equals("them-san-pham")) {
             themSP(request, response);
         } else if (hanhDongSP.equals("thay-doi-san-pham")) {
             suaThongTinSP(request, response);
-        } else if (hanhDongSP.equals("quan-ly-san-pham")) {
-            quanLySanPham(request, response);
+//        } else if (hanhDongSP.equals("quan-ly-san-pham")) {
+//            quanLySanPham(request, response);
         } else if (hanhDongSP.equals("xoa-san-pham")) {
             xoaSanPham(request, response);
+        } else {
+            response.sendRedirect("/sanphamJSP/quanLySP.jsp");
         }
     }
 
@@ -146,12 +147,12 @@ public class SanPhamController extends HttpServlet {
 
     }
 
-    private void quanLySanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SanPhamDAO sanPhamDAO2 = new SanPhamDAO();
-        ArrayList<SanPham> arrayList = sanPhamDAO2.selectAll();
-        request.setAttribute("danhSach", arrayList);
-        request.getRequestDispatcher("/sanphamJSP/quanLySP.jsp").forward(request, response);
-    }
+//    private void quanLySanPham(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//        SanPhamDAO sanPhamDAO2 = new SanPhamDAO();
+//        ArrayList<SanPham> arrayList = sanPhamDAO2.selectAll();
+//        request.setAttribute("danhSach", arrayList);
+//        request.getRequestDispatcher("/sanphamJSP/quanLySP.jsp").forward(request, response);
+//    }
 
 
 

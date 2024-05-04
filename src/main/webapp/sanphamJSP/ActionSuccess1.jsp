@@ -19,7 +19,7 @@
 <h3>Đã thực hiện thành công</h3>
 <script>
     setTimeout(function(){
-        window.location.href = '<%=url1%>/quanLySP.jsp';
+        window.location.href = 'index.jsp';
     }, 1000);
 </script>
 </body>

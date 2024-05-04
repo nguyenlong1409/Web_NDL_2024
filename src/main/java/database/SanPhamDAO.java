@@ -392,7 +392,8 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
 
 //    public static void main(String[] args) {
 //        SanPhamDAO dao = new SanPhamDAO();
-//        ArrayList<SanPham> ketQua = dao.getByMaTheLoai("TL1");
+//        String kk= "TL1";
+//        ArrayList<SanPham> ketQua = dao.getByMaTheLoai(kk);
 //        for (SanPham s : ketQua) {
 //            System.out.println(s.toString());
 //        }

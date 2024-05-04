@@ -1,4 +1,6 @@
-<%--
+<%@ page import="database.SanPhamDAO" %>
+<%@ page import="Model.SanPham" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 5/3/2024
@@ -6,12 +8,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
 
+<h3 style="text-align: center">Danh mục Sách</h3>
 <table class="table" style="font-size: 14px; width: 80%; margin: auto;">
     <thead>
     <tr>
@@ -26,17 +30,17 @@
         <th>Mô tả</th>
     </tr>
     </thead>
-    <c:forEach items="${requestScope.SPbymaTheLoai}" var="sanPhamDAO3">
+    <c:forEach items="${requestScope.SPbymaTheLoai}" var="sp">
         <tr>
-            <td>${sanPhamDAO3.maSanPham}</td>
-            <td>${sanPhamDAO3.tenSanPham}</td>
-            <td>${sanPhamDAO3.maTacGia}</td>
-            <td>${sanPhamDAO3.namXuatBan}</td>
-            <td>${sanPhamDAO3.giaBan}</td>
-            <td>${sanPhamDAO3.soLuong}</td>
-            <td>${sanPhamDAO3.theLoai.tenTheLoai}</td>
-            <td>${sanPhamDAO3.moTa}</td>
-            <td>${sanPhamDAO3.ngonNgu}</td>
+            <td>${sp.maSanPham}</td>
+            <td>${sp.tenSanPham}</td>
+            <td>${sp.maTacGia}</td>
+            <td>${sp.namXuatBan}</td>
+            <td>${sp.giaBan}</td>
+            <td>${sp.soLuong}</td>
+            <td>${sp.theLoai.tenTheLoai}</td>
+            <td>${sp.ngonNgu}</td>
+            <td>${sp.moTa}</td>
         </tr>
     </c:forEach>
 </table>
