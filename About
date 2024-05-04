@@ -1,0 +1,14 @@
+Nội dung của chương trình
+1. Xây dựng một trang web thông tin về sách có FE, BE, DB
+2. Quản lý dự án bằng Maven
+   Model MVC
+   Java JSP/Servlet
+   Cơ sở dữ liệu MySQL
+   Server TomCat
+3. Các chức năng chính:
+    Đăng nhập
+    Đăng ký
+    CRUD
+    Thể hiện thông tin
+    Tìm kiếm
+    Loại sách
