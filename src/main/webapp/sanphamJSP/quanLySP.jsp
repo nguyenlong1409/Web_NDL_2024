@@ -14,18 +14,26 @@
     <title>Tất cả sản phẩm</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale=1, shink-to-fit=no">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+            crossorigin="anonymous"></script>
 </head>
 <body>
+<!-- Header-->
+<%--<%@include file="../header.jsp"%>--%>
+<%--<jsp:include page="../header.jsp"></jsp:include>--%>
+<!-- End Header-->
 
 <%
     SanPhamDAO sanPhamDAO2 = new SanPhamDAO();
-    ArrayList<SanPham> arrayList = sanPhamDAO2.selectAll();
-    request.setAttribute("danhSach", arrayList);
+    ArrayList<SanPham> arrayListQLSP = sanPhamDAO2.selectAll();
+    request.setAttribute("danhSach", arrayListQLSP);
 %>
 
 <h3>Thông tin tất cả sản phẩm</h3>
@@ -52,18 +60,29 @@
         <tr>
             <td>${maSanPham}</td>
             <td>${sp.tenSanPham}</td>
-            <td>${sp.maTacGia}</td>
+            <td>${sp.tacGia.tenTacGia}</td>
             <td>${sp.namXuatBan}</td>
             <td>${sp.giaNhap}</td>
             <td>${sp.giaGoc}</td>
             <td>${sp.giaBan}</td>
             <td>${sp.soLuong}</td>
             <td>${sp.theLoai.tenTheLoai}</td>
-            <td>${sp.moTa}</td>
             <td>${sp.ngonNgu}</td>
+            <td>${sp.moTa}</td>
         </tr>
     </c:forEach>
 </table>
 
+<button onclick="goToHomePage()">Quay Về Trang Chủ</button>
+
+<!-- Footer -->
+<%@ include file="../footer.jsp"%>
+<!-- End Footer -->
+
 </body>
+<script>
+    function goToHomePage() {
+        window.location.href = 'http://localhost:8080/BookWeb/';
+    }
+</script>
 </html>

@@ -46,7 +46,7 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
                 TacGia tacGia = (new TacGiaDAO().selectByID(new TacGia(matacgia, "", null, "","")));
                 TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(matheloai, "")));
 
-                SanPham sp = new SanPham(masanpham, tensanpham, matacgia, namxuatban, gianhap, giagoc, giaban, soluong,
+                SanPham sp = new SanPham(masanpham, tensanpham, tacGia, namxuatban, gianhap, giagoc, giaban, soluong,
                         theLoai, ngonngu, mota);
                 ketQua.add(sp);
             }
@@ -89,7 +89,7 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
                 TacGia tacGia = (new TacGiaDAO().selectByID(new TacGia(matacgia, "", null, "","")));
                 TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(matheloai, "")));
 
-                ketQua = new SanPham(masanpham, tensanpham, matacgia, namxuatban, gianhap, giagoc, giaban, soluong,
+                ketQua = new SanPham(masanpham, tensanpham, tacGia, namxuatban, gianhap, giagoc, giaban, soluong,
                         theLoai, ngonngu, mota);
                 break;
             }
@@ -131,7 +131,7 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
                 TacGia tacGia = (new TacGiaDAO().selectByID(new TacGia(matacgia, "", null, "","")));
                 TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(matheloai, "")));
 
-                ketQua = new SanPham(masanpham, tensanpham, matacgia, namxuatban, gianhap, giagoc, giaban, soluong,
+                ketQua = new SanPham(masanpham, tensanpham, tacGia, namxuatban, gianhap, giagoc, giaban, soluong,
                         theLoai, ngonngu, mota);
                 break;
             }
@@ -160,7 +160,7 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, t.getMaSanPham());
             st.setString(2, t.getTenSanPham());
-            st.setString(3, t.getMaTacGia());
+            st.setString(3, t.getTacGia().getMaTacGia());
             st.setInt(4, t.getNamXuatBan());
             st.setDouble(5, t.getGiaNhap());
             st.setDouble(6, t.getGiaGoc());
@@ -249,7 +249,7 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
 
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, t.getTenSanPham());
-            st.setString(2, t.getMaTacGia());
+            st.setString(2, t.getTacGia().getMaTacGia());
             st.setInt(3, t.getNamXuatBan());
             st.setDouble(4, t.getGiaNhap());
             st.setDouble(5, t.getGiaGoc());
@@ -375,12 +375,106 @@ public class SanPhamDAO implements DAOInterface<SanPham> {
                         null, "","")));
                 TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(matheloai, "")));
 
-                SanPham sp = new SanPham(masanpham, tensanpham, matacgia, namxuatban, gianhap, giagoc,
+                SanPham sp = new SanPham(masanpham, tensanpham, tacGia, namxuatban, gianhap, giagoc,
                         giaban, soluong, theLoai, ngonngu, mota);
                 ketQua.add(sp);
             }
 
             // Bước 5:
+            JDBCUtil.closeConnection(con);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return ketQua;
+    }
+
+    public ArrayList<SanPham> SearchByValue(String t) {
+
+        ArrayList<SanPham> ketQua = new ArrayList<SanPham>();
+
+        try {
+            // Bước 1: tạo kết nối đến CSDL
+            Connection con = JDBCUtil.getConnection();
+            // Bước 2: tạo ra đối tượng statement
+            String sql = "SELECT * FROM bookweb.sanpham AS sp " +
+                         "JOIN bookweb.tacgia AS tg ON sp.matacgia = tg.matacgia " +
+                         "WHERE sp.tensanpham = ? OR tg.hovaten = ?";
+            PreparedStatement st = con.prepareStatement(sql);
+            // Bước 3: thực thi câu lệnh SQL
+            System.out.println(sql);
+            st.setString(1, t);
+            st.setString(2, t);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String masanpham = rs.getString("masanpham");
+                String tensanpham = rs.getString("tensanpham");
+                String matacgia = rs.getString("matacgia");
+                int namxuatban = rs.getInt("namxuatban");
+                double gianhap = rs.getDouble("gianhap");
+                double giagoc = rs.getDouble("giagoc");
+                double giaban = rs.getDouble("giaban");
+                int soluong = rs.getInt("soluong");
+                String matheloai = rs.getString("matheloai");
+                String ngonngu = rs.getString("ngonngu");
+                String mota = rs.getString("mota");
+                String hovaten = rs.getString("hovaten");
+                Date ngaySinh = rs.getDate("ngaysinh");
+                String tieuSu = rs.getString("tieusu");
+                String quocTich = rs.getString("quoctich");
+                TacGia tacGia = new TacGiaDAO().selectByID(new TacGia(matacgia, "", null, "", ""));
+                TheLoai theLoai = new TheLoaiDAO().selectByID(new TheLoai(matheloai, ""));
+
+                SanPham sp = new SanPham(masanpham, tensanpham, tacGia, namxuatban, gianhap, giagoc, giaban, soluong,
+                        theLoai, ngonngu, mota);
+
+                ketQua.add(sp);
+            }
+            // Bước 5:
+            JDBCUtil.closeConnection(con);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+
+//    public SanPham selectByName(String t) {
+    public ArrayList<SanPham> selectByName(String t) {
+
+        ArrayList<SanPham> ketQua = new ArrayList<SanPham>();
+
+        try {
+            Connection con = JDBCUtil.getConnection();
+
+            String sql = "SELECT * FROM sanpham WHERE tensanpham=?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, t);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                String masanpham = rs.getString("masanpham");
+                String tensanpham = rs.getString("tensanpham");
+                String matacgia = rs.getString("matacgia");
+                int namxuatban = rs.getInt("namxuatban");
+                double gianhap = rs.getDouble("gianhap");
+                double giagoc = rs.getDouble("giagoc");
+                double giaban = rs.getDouble("giaban");
+                int soluong = (int) rs.getDouble("soluong");
+                String matheloai = rs.getString("matheloai");
+                String ngonngu = rs.getString("ngonngu");
+                String mota = rs.getString("mota");
+
+                TacGia tacGia = (new TacGiaDAO().selectByID(new TacGia(matacgia, "", null,
+                        "","")));
+                TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(matheloai, "")));
+
+                SanPham sp = new  SanPham(masanpham, tensanpham, tacGia, namxuatban, gianhap, giagoc, giaban, soluong,
+                        theLoai, ngonngu, mota);
+                ketQua.add(sp);
+            }
+
             JDBCUtil.closeConnection(con);
         } catch (SQLException e) {
             // TODO Auto-generated catch block

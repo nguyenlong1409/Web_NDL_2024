@@ -3,7 +3,7 @@ package Model;
 public class SanPham {
     private String maSanPham;
     private String tenSanPham;
-    private String maTacGia;
+    private TacGia tacGia;
     private int namXuatBan;
     private double giaNhap;
     private double giaGoc;
@@ -23,20 +23,21 @@ public class SanPham {
         this.soLuong = soLuong;
     }
 
-    public SanPham(String maSanPham, String tenSanPham, String maTacGia,
+    public SanPham(String maSanPham, String tenSanPham, TacGia tacGia,
                    int namXuatBan, double giaNhap, double giaGoc, double giaBan,
-                   double soLuong, TheLoai theLoai , String moTa, String ngonNgu) {
+                   double soLuong, TheLoai theLoai , String ngonNgu, String moTa) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
-        this.maTacGia= maTacGia;
+        this.tacGia= tacGia;
         this.namXuatBan = namXuatBan;
         this.giaNhap = giaNhap;
         this.giaGoc = giaGoc;
         this.giaBan = giaBan;
         this.soLuong = soLuong;
         this.theLoai = theLoai;
-        this.moTa = moTa;
         this.ngonNgu = ngonNgu;
+        this.moTa = moTa;
+
 
     }
 
@@ -56,13 +57,21 @@ public class SanPham {
         this.tenSanPham = tenSanPham;
     }
 
-    public String getMaTacGia() {
-        return maTacGia;
+    public TacGia getTacGia() {
+        return tacGia;
     }
 
-    public void setMaTacGia(String maTacGia) {
-        this.maTacGia = maTacGia;
+    public void setTacGia(TacGia tacGia) {
+        this.tacGia = tacGia;
     }
+
+    //    public String getMaTacGia() {
+//        return maTacGia;
+//    }
+//
+//    public void setMaTacGia(String maTacGia) {
+//        this.maTacGia = maTacGia;
+//    }
 
 //    public TacGia getTacGia() {
 //        return tacGia;
@@ -149,8 +158,8 @@ public class SanPham {
         return "SanPham{" +
                "maSanPham='" + maSanPham + '\'' +
                ", tenSanPham='" + tenSanPham + '\'' +
-               ", maTacGia='" + maTacGia + '\'' +
-//               ", tacGia=" + tacGia +
+//               ", maTacGia='" + maTacGia + '\'' +
+               ", tacGia=" + tacGia +
                ", namXuatBan=" + namXuatBan +
                ", giaNhap=" + giaNhap +
                ", giaGoc=" + giaGoc +

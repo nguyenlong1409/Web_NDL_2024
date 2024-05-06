@@ -69,8 +69,8 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
+            <form class="d-flex" role="search" action="tim-kiem" method="post">
+                <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search" name="timkiem" id="timkiem">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
 
@@ -145,22 +145,22 @@
                     <div class="carousel-item active" data-bs-interval="10000">
                         <img src="image/slider/1.png" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>First slide label</h5>
-                            <p>Some representative placeholder content for the first slide.</p>
+<%--                            <h5>First slide label</h5>--%>
+<%--                            <p>Some representative placeholder content for the first slide.</p>--%>
                         </div>
                     </div>
                     <div class="carousel-item" data-bs-interval="2000">
                         <img src="image/slider/2.png" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Second slide label</h5>
-                            <p>Some representative placeholder content for the second slide.</p>
+<%--                            <h5>Second slide label</h5>--%>
+<%--                            <p>Some representative placeholder content for the second slide.</p>--%>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <img src="image/slider/3.png" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Third slide label</h5>
-                            <p>Some representative placeholder content for the third slide.</p>
+<%--                            <h5>Third slide label</h5>--%>
+<%--                            <p>Some representative placeholder content for the third slide.</p>--%>
                         </div>
                     </div>
                 </div>

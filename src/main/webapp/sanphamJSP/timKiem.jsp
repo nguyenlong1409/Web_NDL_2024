@@ -1,10 +1,8 @@
-<%@ page import="database.SanPhamDAO" %>
-<%@ page import="Model.SanPham" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: ADMIN
-  Date: 5/3/2024
-  Time: 5:23 PM
+  Date: 5/6/2024
+  Time: 10:12 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,6 +10,7 @@
 <html>
 <head>
     <title>Title</title>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width-device-width, initial-scale=1, shink-to-fit=no">
 
@@ -26,12 +25,7 @@
 </head>
 <body>
 
-<!-- Header-->
-<%--<%@include file="../header.jsp"%>--%>
-<%--<jsp:include page="../header.jsp"></jsp:include>--%>
-<!-- End Header-->
-
-<h3 style="text-align: center">Danh mục Sách</h3>
+<h3 style="text-align: center">Kết quả cho ${giaTriTK}</h3>
 <table class="table" style="font-size: 14px; width: 80%; margin: auto;">
     <thead>
     <tr>
@@ -41,11 +35,10 @@
         <th>Giá bán</th>
         <th>Số lượng</th>
         <th>Thể loại</th>
-        <th>Ngôn ngữ</th>
         <th>Mô tả</th>
     </tr>
     </thead>
-    <c:forEach items="${requestScope.SPbymaTheLoai}" var="sp">
+    <c:forEach items="${requestScope.ketQuaTKTimKiem}" var="sp">
         <tr>
             <td><a href="thong-tin?tenSanPham_raw=${sp.tenSanPham}"> ${sp.tenSanPham}</a></td>
             <td>${sp.tacGia.tenTacGia}</td>
@@ -53,11 +46,11 @@
             <td>${sp.giaBan}</td>
             <td>${sp.soLuong}</td>
             <td>${sp.theLoai.tenTheLoai}</td>
-            <td>${sp.ngonNgu}</td>
             <td>${sp.moTa}</td>
         </tr>
     </c:forEach>
 </table>
+
 
 <!-- Footer -->
 <%@ include file="../footer.jsp"%>

@@ -69,17 +69,26 @@
             <input type="text" class="form-control" id="maTheLoai" name="maTheLoai" >
         </div>
         <div class="mb-3">
-            <label for="moTa" class="form-label">Mô tả</label>
-            <input type="text" class="form-control" id="moTa" name="moTa" >
-        </div>
-        <div class="mb-3">
             <label for="ngonNgu" class="form-label">Ngôn ngữ</label>
             <input type="text" class="form-control" id="ngonNgu" name="ngonNgu" >
         </div>
+        <div class="mb-3">
+            <label for="moTa" class="form-label">Mô tả</label>
+            <input type="text" class="form-control" id="moTa" name="moTa" >
+        </div>
+
 
         <input class="btn btn-primary form-control" type="submit" value="Lưu thông tin" name="submit" id="submit"/>
     </form>
 </div>
 
+<button onclick="goToHomePage()">Quay Về Trang Chủ</button>
+
 </body>
+<script>
+    function goToHomePage() {
+        window.location.href = 'http://localhost:8080/BookWeb/';
+    }
+</script>
+
 </html>

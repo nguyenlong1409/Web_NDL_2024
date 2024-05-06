@@ -212,6 +212,41 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
         return ketQua;
     }
 
+    public TacGia selectByIDorName(TacGia t) {
+        TacGia ketQua = null;
+        try {
+            // Bước 1: tạo kết nối đến CSDL
+            Connection con = JDBCUtil.getConnection();
+
+            // Bước 2: tạo ra đối tượng statement
+            String sql = "SELECT * FROM tacgia WHERE matacgia=? or hovaten=?";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, t.getMaTacGia());
+
+            // Bước 3: thực thi câu lệnh SQL
+            System.out.println(sql);
+            ResultSet rs = st.executeQuery();
+
+            // Bước 4:
+            while (rs.next()) {
+                String maTacGia = rs.getString("matacgia");
+                String hoVaTen = rs.getString("hovaten");
+                Date ngaySinh = rs.getDate("ngaysinh");
+                String tieuSu = rs.getString("tieusu");
+                String quocTich = rs.getString("quoctich");
+
+                ketQua = new TacGia(maTacGia, hoVaTen, ngaySinh, tieuSu, quocTich);
+                break;
+            }
+            // Bước 5:
+            JDBCUtil.closeConnection(con);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ketQua;
+    }
+
 
 //    public static void main(String[] args) {
 //        TacGiaDAO tgd = new TacGiaDAO();

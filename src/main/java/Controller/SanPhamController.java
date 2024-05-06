@@ -1,8 +1,10 @@
 package Controller;
 
 import Model.SanPham;
+import Model.TacGia;
 import Model.TheLoai;
 import database.SanPhamDAO;
+import database.TacGiaDAO;
 import database.TheLoaiDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -12,7 +14,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 @WebServlet(name = "SanPhamController", urlPatterns = {"/san-pham"})
@@ -85,8 +89,9 @@ public class SanPhamController extends HttpServlet {
             url = "/sanphamJSP/themSanPham.jsp";
         } else {
             TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(maTheLoai, "")));
-            SanPham sanPham = new SanPham(maSanPham, tenSanPham, maTacGia, Integer.parseInt(namXuatBan), Double.parseDouble(giaNhap),
-                    Double.parseDouble(giaGoc), Double.parseDouble(giaBan), Double.parseDouble(soLuong), theLoai, moTa, ngonNgu);
+            TacGia tacGia = (new TacGiaDAO().selectByID(new TacGia(maTacGia, "", null, "", "")));
+            SanPham sanPham = new SanPham(maSanPham, tenSanPham, tacGia, Integer.parseInt(namXuatBan), Double.parseDouble(giaNhap),
+                    Double.parseDouble(giaGoc), Double.parseDouble(giaBan), Double.parseDouble(soLuong), theLoai, ngonNgu, moTa);
             sanPhamDAO.insert(sanPham);
             url = "/sanphamJSP/ActionSuccess1.jsp";
         }
@@ -134,8 +139,9 @@ public class SanPhamController extends HttpServlet {
             url = "/sanphamJSP/suaSanPham.jsp";
         } else {
             TheLoai theLoai = (new TheLoaiDAO().selectByID(new TheLoai(maTheLoai, "")));
-            SanPham sp = new SanPham(maSanPham, tenSanPham, maTacGia, Integer.parseInt(namXuatBan), Double.parseDouble(giaNhap),
-                    Double.parseDouble(giaGoc), Double.parseDouble(giaBan), Double.parseDouble(soLuong), theLoai, moTa, ngonNgu);
+            TacGia tacGia = (new TacGiaDAO().selectByID(new TacGia(maTacGia, "", null, "", "")));
+            SanPham sp = new SanPham(maSanPham, tenSanPham, tacGia, Integer.parseInt(namXuatBan), Double.parseDouble(giaNhap),
+                    Double.parseDouble(giaGoc), Double.parseDouble(giaBan), Double.parseDouble(soLuong), theLoai, ngonNgu, moTa);
             sanPhamDAO.update(sp);
             url = "/sanphamJSP/ActionSuccess1.jsp";
         }
