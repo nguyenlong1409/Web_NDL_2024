@@ -154,7 +154,7 @@
             <hr/>
             <input class="btn btn-primary form-control" type="submit" value="Đăng ký" name="submit" id="submit"
                    style="visibility: hidden"/>
-            <a href="../index.jsp">Quay lại</a>
+            <a href="url1/index.jsp">Quay lại</a>
         </div>
     </form>
 </div>

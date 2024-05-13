@@ -1,6 +1,5 @@
 package database;
 
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import Model.TacGia;
 
 public class TacGiaDAO implements DAOInterface<TacGia> {
     @Override
-    public ArrayList<TacGia> selectAll() {
+    public ArrayList<TacGia> chonTatCa() {
         ArrayList<TacGia> ketQua = new ArrayList<TacGia>();
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -49,7 +48,7 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
     }
 
     @Override
-    public TacGia selectByID(TacGia t) {
+    public TacGia chonTheoMa(TacGia t) {
         TacGia ketQua = null;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -84,10 +83,8 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
         return ketQua;
     }
 
-
-
     @Override
-    public int insert(TacGia t) {
+    public int chenTT(TacGia t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -125,13 +122,13 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
     public int insertAll(ArrayList<TacGia> arr) {
         int dem = 0;
         for (TacGia tacGia : arr) {
-            dem += this.insert(tacGia);
+            dem += this.chenTT(tacGia);
         }
         return dem;
     }
 
     @Override
-    public int delete(TacGia t) {
+    public int xoaTT(TacGia t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -166,13 +163,13 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
     public int deleteAll(ArrayList<TacGia> arr) {
         int dem = 0;
         for (TacGia tacGia : arr) {
-            dem += this.delete(tacGia);
+            dem += this.xoaTT(tacGia);
         }
         return dem;
     }
 
     @Override
-    public int update(TacGia t) {
+    public int capNhatTT(TacGia t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -250,7 +247,7 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
 
 //    public static void main(String[] args) {
 //        TacGiaDAO tgd = new TacGiaDAO();
-////		ArrayList<TacGia> kq = tgd.selectAll();
+////		ArrayList<TacGia> kq = tgd.chonTatCa();
 ////		for (TacGia tacGia : kq) {
 ////			System.out.println(tacGia.toString());
 ////		}
@@ -261,17 +258,17 @@ public class TacGiaDAO implements DAOInterface<TacGia> {
 ////
 //
 ////		TacGia tg_new = new TacGia("TG10", "David", new Date(2000-1900, 10, 15), "");
-////		tgd.insert(tg_new);
+////		tgd.chenTT(tg_new);
 //
 ////		TacGia tg_new = new TacGia("TG10", "David", new Date(2000-1900, 10, 15), "");
-////		tgd.delete(tg_new);
+////		tgd.xoaTT(tg_new);
 //
 //
-//        TacGia tg = tgd.selectByID(new TacGia("TG0001", "", null, "",""));
+//        TacGia tg = tgd.chonTatCa(new TacGia("TG0001", "", null, "",""));
 //        System.out.println(tg);
 //        tg.setTieuSu("TIỂU SỬ ĐÃ BỊ THAY ĐỔI");
 //
-//        tgd.update(tg);
+//        tgd.capNhatTT(tg);
 //    }
 
 }

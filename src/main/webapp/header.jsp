@@ -12,10 +12,13 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!-- Navbar-->
 <%
+    String url1 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+                  + request.getContextPath();
+%>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="image/logo/Logobook1.jpg" alt="Boostrap"
+            <img src="<%= url1%>/image/logo/Logobook1.jpg" alt="Boostrap"
                  height="24">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -25,10 +28,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.jsp">Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link active" aria-current="page" href="<%=url1%>/index.jsp">Trang chủ</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -38,7 +38,7 @@
                     <ul class="dropdown-menu">
                         <%
                             TheLoaiDAO theLoaiDAO = new TheLoaiDAO();
-                            ArrayList<TheLoai> arrayList = theLoaiDAO.selectAll();
+                            ArrayList<TheLoai> arrayList = theLoaiDAO.chonTatCa();
                             request.setAttribute("arrayList", arrayList);
                         %>
                         <li><a class="dropdown-item" href="sp-the-loai?maTheLoai=${theLoaiDao.maTheLoai}">Tất cả</a></li>
@@ -47,11 +47,9 @@
                         </c:forEach>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
+
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex" role="search" action="tim-kiem" method="post">
                 <input class="form-control me-2" type="search" placeholder="Tìm kiếm" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -79,9 +77,9 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Thông báo</a></li>
                             <%--                        <li><a class="dropdown-item" href="san-pham?hanhDongSP=quan-ly-san-pham">Quản lý sản phẩm</a></li>--%>
-                            <li><a class="dropdown-item" href="sanphamJSP/quanLySP.jsp">Quản lý sản phẩm</a></li>
-                            <li><a class="dropdown-item" href="khachhangJsp/thayDoiThongTin.jsp">Thay đổi thông tin</a></li>
-                            <li><a class="dropdown-item" href="khachhangJsp/doiMatKhau.jsp">Đổi mật khẩu</a></li>
+                            <li><a class="dropdown-item" href="<%= url1%>/sanphamJSP/quanLySP.jsp">Quản lý sản phẩm</a></li>
+                            <li><a class="dropdown-item" href="<%= url1%>/khachhangJsp/thayDoiThongTin.jsp">Thay đổi thông tin</a></li>
+                            <li><a class="dropdown-item" href="<%= url1%>/khachhangJsp/doiMatKhau.jsp">Đổi mật khẩu</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

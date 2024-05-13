@@ -17,6 +17,9 @@ public class DonHang {
     private Date ngayDatHang;
     private Date ngayGiaoHang;
 
+    public DonHang() {
+    }
+
     public DonHang(String maDH, KhachHang khachHang, String diaChiNguoiMua, String diaChiNhanHang, String trangThai, String hinhThucThanhToan, double soTienDaThanhToan, double soTienConThieu, java.sql.Date ngayDatHang, java.sql.Date ngayGiaoHang) {
     }
 

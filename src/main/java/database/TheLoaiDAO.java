@@ -1,19 +1,17 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import Model.TacGia;
 import Model.TheLoai;
 
 public class TheLoaiDAO implements DAOInterface<TheLoai> {
 
     @Override
-    public ArrayList<TheLoai> selectAll() {
+    public ArrayList<TheLoai> chonTatCa() {
         ArrayList<TheLoai> ketQua = new ArrayList<TheLoai>();
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -47,7 +45,7 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
     }
 
     @Override
-    public TheLoai selectByID(TheLoai t) {
+    public TheLoai chonTheoMa(TheLoai t) {
         TheLoai ketQua = null;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -81,16 +79,15 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
     }
 
 
-
     @Override
-    public int insert(TheLoai t) {
+    public int chenTT(TheLoai t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
             Connection con = JDBCUtil.getConnection();
 
             // Bước 2: tạo ra đối tượng statement
-            String sql = "INSERT INTO theloai (matheloai, tentheloai) "+
+            String sql = "INSERT INTO theloai (matheloai, tentheloai) " +
                          " VALUES (?,?)";
 
             PreparedStatement st = con.prepareStatement(sql);
@@ -101,8 +98,8 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
             ketQua = st.executeUpdate();
 
             // Bước 4:
-            System.out.println("Bạn đã thực thi: "+ sql);
-            System.out.println("Có "+ ketQua+" dòng bị thay đổi!");
+            System.out.println("Bạn đã thực thi: " + sql);
+            System.out.println("Có " + ketQua + " dòng bị thay đổi!");
 
             // Bước 5:
             JDBCUtil.closeConnection(con);
@@ -118,20 +115,20 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
     public int insertAll(ArrayList<TheLoai> arr) {
         int dem = 0;
         for (TheLoai theLoai : arr) {
-            dem+=this.insert(theLoai);
+            dem += this.chenTT(theLoai);
         }
         return dem;
     }
 
     @Override
-    public int delete(TheLoai t) {
+    public int xoaTT(TheLoai t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
             Connection con = JDBCUtil.getConnection();
 
             // Bước 2: tạo ra đối tượng statement
-            String sql = "DELETE from theloai "+
+            String sql = "DELETE from theloai " +
                          " WHERE matheloai=?";
 
             PreparedStatement st = con.prepareStatement(sql);
@@ -142,8 +139,8 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
             ketQua = st.executeUpdate();
 
             // Bước 4:
-            System.out.println("Bạn đã thực thi: "+ sql);
-            System.out.println("Có "+ ketQua+" dòng bị thay đổi!");
+            System.out.println("Bạn đã thực thi: " + sql);
+            System.out.println("Có " + ketQua + " dòng bị thay đổi!");
 
             // Bước 5:
             JDBCUtil.closeConnection(con);
@@ -159,22 +156,22 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
     public int deleteAll(ArrayList<TheLoai> arr) {
         int dem = 0;
         for (TheLoai TheLoai : arr) {
-            dem += this.delete(TheLoai);
+            dem += this.xoaTT(TheLoai);
         }
         return dem;
     }
 
     @Override
-    public int update(TheLoai t) {
+    public int capNhatTT(TheLoai t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
             Connection con = JDBCUtil.getConnection();
 
             // Bước 2: tạo ra đối tượng statement
-            String sql = "UPDATE theloai "+
+            String sql = "UPDATE theloai " +
                          " SET " +
-                         " tenTheLoai=?"+
+                         " tenTheLoai=?" +
                          " WHERE matheloai=?";
 
             PreparedStatement st = con.prepareStatement(sql);
@@ -186,8 +183,8 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
             ketQua = st.executeUpdate();
 
             // Bước 4:
-            System.out.println("Bạn đã thực thi: "+ sql);
-            System.out.println("Có "+ ketQua+" dòng bị thay đổi!");
+            System.out.println("Bạn đã thực thi: " + sql);
+            System.out.println("Có " + ketQua + " dòng bị thay đổi!");
 
             // Bước 5:
             JDBCUtil.closeConnection(con);
@@ -197,10 +194,10 @@ public class TheLoaiDAO implements DAOInterface<TheLoai> {
         }
         return ketQua;
     }
-
-    public static void main(String[] args) {
-        TheLoaiDAO theLoaiDAO = new TheLoaiDAO();
-        TheLoai theLoai = new TheLoai("TL1", null);
-        theLoaiDAO.selectByID(theLoai);
-    }
 }
+//    public static void main(String[] args) {
+//        TheLoaiDAO theLoaiDAO = new TheLoaiDAO();
+//        TheLoai theLoai = new TheLoai("TL1", null);
+//        theLoaiDAO.chonTheoMa(theLoai);
+//    }
+//}

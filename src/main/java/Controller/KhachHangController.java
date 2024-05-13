@@ -54,7 +54,7 @@ public class KhachHangController extends HttpServlet {
             kh.setMatKhau(matKhau);
 
             KhachHangDAO khachHangDAO = new KhachHangDAO();
-            KhachHang khachHang = khachHangDAO.selectByUserNameandPass(kh);
+            KhachHang khachHang = khachHangDAO.chonTenvaMK(kh);
 
             String url = "";
             if (khachHang != null) {
@@ -67,9 +67,7 @@ public class KhachHangController extends HttpServlet {
             }
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(url);
             requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -129,23 +127,21 @@ public class KhachHangController extends HttpServlet {
 
             request.setAttribute("baoLoi", baoLoi);
 
-            if (baoLoi.length() > 0) {
+            if (!baoLoi.isEmpty()) {
                 url = "/khachhangJsp/dangky.jsp";
             } else {
                 Random rd = new Random();
                 String maKhachHang = System.currentTimeMillis() + rd.nextInt(100) + "";
                 KhachHang khachHang = new KhachHang(maKhachHang, tenDangNhap, matKhau, hoVaTen, gioiTinh, diaChi, diaChiNhanHang,
-                        diaChiMuaHang, Date.valueOf(ngaySinh), soDienThoai, email, nhanEmail != null);
-                khachHangDAO.insert(khachHang);
+                        diaChiMuaHang, Date.valueOf(ngaySinh), soDienThoai, email, nhanEmail != null, "user");
+                khachHangDAO.chenTT(khachHang);
 
-                url = "/khachhangJsp/ActionSuccess.jsp";
+                url = "/khachhangJsp/ThanhCong1.jsp";
             }
 
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(url);
             requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -184,9 +180,9 @@ public class KhachHangController extends HttpServlet {
                         String matKhauMoiSHA1 = MaHoa.toSHA1(matKhauMoi);
                         khachHang.setMatKhau(matKhauMoiSHA1);
                         KhachHangDAO khachHangDAO = new KhachHangDAO();
-                        if (khachHangDAO.changePassword(khachHang)) {
+                        if (khachHangDAO.doiMatKhau(khachHang)) {
                             baoLoi = "Đã thay đổi mật khẩu thành công";
-                            url = "/khachhangJsp/ActionSuccess.jsp";
+                            url = "/khachhangJsp/ThanhCong1.jsp";
                         } else {
                             baoLoi = "Đổi mật khẩu thất bại";
                         }
@@ -242,21 +238,19 @@ public class KhachHangController extends HttpServlet {
                     if (khachHang != null) {
                         String maKhachHang = khachHang.getMaKhachHang();
                         KhachHang kh = new KhachHang(maKhachHang, "", "", hoVaTen, gioiTinh, diaChi, diaChiNhanHang,
-                                diaChiMuaHang, Date.valueOf(ngaySinh), soDienThoai, email, nhanEmail != null);
-                        khachHangDAO.updateInfor(kh);
+                                diaChiMuaHang, Date.valueOf(ngaySinh), soDienThoai, email, nhanEmail != null, "user");
+                        khachHangDAO.capNhatKH(kh);
 
-                        KhachHang kh2 = khachHangDAO.selectByID(kh);
+                        KhachHang kh2 = khachHangDAO.chonTheoMa(kh);
                         request.getSession().setAttribute("khachHang", kh2);
-                        url = "/khachhangJsp/ActionSuccess.jsp";
+                        url = "/khachhangJsp/ThanhCong1.jsp";
                     }
 
                     RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(url);
                     requestDispatcher.forward(request, response);
                 }
             }
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             throw new RuntimeException(e);
         }
     }

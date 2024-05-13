@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "dsSanPham", urlPatterns = {"/sp-the-loai"})
-public class SP_theo_The_Loai extends HttpServlet {
+public class SPTheoTheLoai extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String maTheLoai_raw = request.getParameter("maTheLoai");
@@ -22,10 +22,10 @@ public class SP_theo_The_Loai extends HttpServlet {
             maTheLoai = String.valueOf(maTheLoai_raw);
             SanPhamDAO dao = new SanPhamDAO();
             if(maTheLoai == null || maTheLoai.equals("") ){
-                ArrayList<SanPham> ketqua = dao.selectAll();
+                ArrayList<SanPham> ketqua = dao.chonTatCa();
                 request.setAttribute("SPbymaTheLoai", ketqua);
             }else {
-                ArrayList<SanPham> ketqua = dao.getByMaTheLoai(maTheLoai);
+                ArrayList<SanPham> ketqua = dao.timMaTheLoai(maTheLoai);
                 request.setAttribute("SPbymaTheLoai", ketqua);
             }
         } catch (NumberFormatException e) {

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @WebServlet(name = "ThongTinSanPham", urlPatterns = {"/thong-tin"})
-public class thongTinSP extends HttpServlet {
+public class ThongTinSP extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
@@ -26,7 +26,7 @@ public class thongTinSP extends HttpServlet {
         try{
             tenSP = String.valueOf(tenSanPham_raw);
             SanPhamDAO dao = new SanPhamDAO();
-            ArrayList<SanPham> ketQua = dao.selectByName(tenSP);
+            ArrayList<SanPham> ketQua = dao.timTheoTen(tenSP);
             request.setAttribute("thongTinSP", ketQua);
             url = "/sanphamJSP/thongTinSanPham.jsp";
         } catch (NumberFormatException e){

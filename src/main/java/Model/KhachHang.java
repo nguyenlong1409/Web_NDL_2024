@@ -17,13 +17,14 @@ public class KhachHang {
     private String soDienThoai;
     private String email;
     private boolean dangKyNhanBangTin;
+    private String vaiTro;
 
     public KhachHang() {
     }
 
     public KhachHang(String maKhachHang, String tenDangNhap, String matKhau, String hoVaTen,
                      String gioiTinh, String diaChi , String diaChiNhanHang, String diaChiMuaHang,
-                     Date ngaySinh, String soDienThoai, String email, boolean dangKyNhanBangTin) {
+                     Date ngaySinh, String soDienThoai, String email, boolean dangKyNhanBangTin, String vaiTro) {
         this.maKhachHang = maKhachHang;
         this.tenDangNhap = tenDangNhap;
         this.matKhau = matKhau;
@@ -36,6 +37,7 @@ public class KhachHang {
         this.soDienThoai = soDienThoai;
         this.email = email;
         this.dangKyNhanBangTin = dangKyNhanBangTin;
+        this.vaiTro = vaiTro;
     }
 
     public String getMaKhachHang() {
@@ -134,6 +136,14 @@ public class KhachHang {
         this.dangKyNhanBangTin = dangKyNhanBangTin;
     }
 
+    public String getVaiTro() {
+        return vaiTro;
+    }
+
+    public void setVaiTro(String vaiTro) {
+        this.vaiTro = vaiTro;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -162,6 +172,7 @@ public class KhachHang {
                ", soDienThoai='" + soDienThoai + '\'' +
                ", email='" + email + '\'' +
                ", dangKyNhanBangTin=" + dangKyNhanBangTin +
+               ", vaiTro='" + vaiTro + '\'' +
                '}';
     }
 }

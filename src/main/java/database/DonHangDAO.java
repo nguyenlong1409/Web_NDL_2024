@@ -10,12 +10,11 @@ import java.util.ArrayList;
 
 import Model.DonHang;
 import Model.KhachHang;
-import Model.TacGia;
 
 public class DonHangDAO implements DAOInterface<DonHang> {
 
     @Override
-    public ArrayList<DonHang> selectAll() {
+    public ArrayList<DonHang> chonTatCa() {
         ArrayList<DonHang> ketQua = new ArrayList<DonHang>();
         Connection con = JDBCUtil.getConnection();
         String sql = "SELECT * FROM donhang";
@@ -35,7 +34,9 @@ public class DonHangDAO implements DAOInterface<DonHang> {
                 Date ngayGiaoHang = rs.getDate(10);
 
                 KhachHang khachHang = new KhachHangDAO()
-                        .selectByID(new KhachHang(maKH, "", "", "", "", "", "", "", null, "", "", false));
+                        .chonTheoMa(new KhachHang(maKH, "", "", "",
+                                "", "", "", "", null,
+                                "", "", false, ""));
                 DonHang dh = new DonHang(maDH, khachHang, diaChiNguoiMua, diaChiNhanHang, trangThai, hinhThucThanhToan,
                         soTienDaThanhToan, soTienConThieu, ngayDatHang, ngayGiaoHang);
 
@@ -50,7 +51,7 @@ public class DonHangDAO implements DAOInterface<DonHang> {
     }
 
     @Override
-    public DonHang selectByID(DonHang t) {
+    public DonHang chonTheoMa(DonHang t) {
         DonHang ketQua = null;
         Connection con = JDBCUtil.getConnection();
         String sql = "SELECT * FROM donhang WHERE madonhang = ?";
@@ -71,7 +72,9 @@ public class DonHangDAO implements DAOInterface<DonHang> {
                 Date ngayGiaoHang = rs.getDate(10);
 
                 KhachHang khachHang = new KhachHangDAO()
-                        .selectByID(new KhachHang(maKH, "", "", "", "", "", "", "", null, "", "", false));
+                        .chonTheoMa(new KhachHang(maKH, "", "", "",
+                                "", "", "", "", null,
+                                "", "", false, ""));
                 DonHang dh = new DonHang(maDH, khachHang, diaChiNguoiMua, diaChiNhanHang, trangThai, hinhThucThanhToan,
                         soTienDaThanhToan, soTienConThieu, ngayDatHang, ngayGiaoHang);
 
@@ -86,7 +89,7 @@ public class DonHangDAO implements DAOInterface<DonHang> {
     }
 
     @Override
-    public int insert(DonHang t) {
+    public int chenTT(DonHang t) {
         int kq = 0;
         Connection con = JDBCUtil.getConnection();
         String sql = "INSERT INTO donhang(madonhang, makhachhang, diachimuahang, diachinhanhang, hinhthucthanhtoan, trangthaithanhtoan, sotienthanhtoan, sotienconthieu, ngaydathang, ngaygiaohang)"
@@ -117,13 +120,13 @@ public class DonHangDAO implements DAOInterface<DonHang> {
     public int insertAll(ArrayList<DonHang> arr) {
         int kq = 0;
         for (DonHang donHang : arr) {
-            kq += this.insert(donHang);
+            kq += this.chenTT(donHang);
         }
         return kq;
     }
 
     @Override
-    public int delete(DonHang t) {
+    public int xoaTT(DonHang t) {
         int kq = 0;
         Connection con = JDBCUtil.getConnection();
         String sql = "DELETE FROM donhang WHERE madonhang = ?";
@@ -142,13 +145,13 @@ public class DonHangDAO implements DAOInterface<DonHang> {
     public int deleteAll(ArrayList<DonHang> arr) {
         int kq = 0;
         for (DonHang t : arr) {
-            kq += this.delete(t);
+            kq += this.xoaTT(t);
         }
         return kq;
     }
 
     @Override
-    public int update(DonHang t) {
+    public int capNhatTT(DonHang t) {
         int kq = 0;
         Connection con = JDBCUtil.getConnection();
 

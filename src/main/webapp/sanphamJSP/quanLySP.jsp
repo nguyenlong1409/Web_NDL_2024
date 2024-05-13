@@ -26,63 +26,66 @@
 </head>
 <body>
 <!-- Header-->
+<%
+    String urlpage = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+                  + request.getContextPath();
+%>
 <%--<%@include file="../header.jsp"%>--%>
-<%--<jsp:include page="../header.jsp"></jsp:include>--%>
+<jsp:include page="../header.jsp"></jsp:include>
 <!-- End Header-->
-
 <%
     SanPhamDAO sanPhamDAO2 = new SanPhamDAO();
-    ArrayList<SanPham> arrayListQLSP = sanPhamDAO2.selectAll();
+    ArrayList<SanPham> arrayListQLSP = sanPhamDAO2.chonTatCa();
     request.setAttribute("danhSach", arrayListQLSP);
 %>
 
 <h3>Thông tin tất cả sản phẩm</h3>
 <h5><a href="themSanPham.jsp">Thêm sản phẩm</a> </h5>
-<h5><a href="suaSanPham.jsp">Sửa sản phẩm</a> </h5>
-<table class="table" style="font-size: 14px; width: 80%; margin: auto;">
+<table class="table" style=" width: 90%; margin: auto;">
     <thead>
     <tr>
-        <th>Mã sản phẩm</th>
-        <th>Tên sản phẩm</th>
-        <th>Tác giả</th>
-        <th>Năm xuất bản</th>
-        <th>Giá nhập</th>
-        <th>Giá gốc</th>
-        <th>Giá bán</th>
-        <th>Số lượng</th>
-        <th>Thể loại</th>
-        <th>Ngôn ngữ</th>
-        <th>Mô tả</th>
+        <th></th>
+        <th style="font-size: 13px">Mã sản phẩm</th>
+        <th style="font-size: 13px">Tên sản phẩm</th>
+        <th style="font-size: 13px">Tác giả</th>
+        <th style="font-size: 13px">Năm xuất bản</th>
+        <th style="font-size: 13px">Giá nhập</th>
+        <th style="font-size: 13px">Giá gốc</th>
+        <th style="font-size: 13px">Giá bán</th>
+        <th style="font-size: 13px">Số lượng</th>
+        <th style="font-size: 13px">Thể loại</th>
+        <th style="font-size: 13px">Ngôn ngữ</th>
+        <th style="font-size: 13px">Mô tả</th>
+        <th></th>
     </tr>
     </thead>
     <c:forEach items="${requestScope.danhSach}" var="sp">
-        <c:set var="maSanPham" value="${sp.maSanPham}"/>
         <tr>
-            <td>${maSanPham}</td>
-            <td>${sp.tenSanPham}</td>
-            <td>${sp.tacGia.tenTacGia}</td>
-            <td>${sp.namXuatBan}</td>
-            <td>${sp.giaNhap}</td>
-            <td>${sp.giaGoc}</td>
-            <td>${sp.giaBan}</td>
-            <td>${sp.soLuong}</td>
-            <td>${sp.theLoai.tenTheLoai}</td>
-            <td>${sp.ngonNgu}</td>
-            <td>${sp.moTa}</td>
+            <td>
+                <img src="<%= urlpage%>/image/product/${sp.anhSP}" width="60px" ">
+            </td>
+            <td style="font-size: 12px">${sp.maSanPham}</td>
+            <td style="font-size: 12px">${sp.tenSanPham}</td>
+            <td style="font-size: 12px"${sp.tacGia.tenTacGia}</td>
+            <td style="font-size: 12px">${sp.namXuatBan}</td>
+            <td style="font-size: 12px">${sp.giaNhap}</td>
+            <td style="font-size: 12px">${sp.giaGoc}</td>
+            <td style="font-size: 12px">${sp.giaBan}</td>
+            <td style="font-size: 12px">${sp.soLuong}</td>
+            <td style="font-size: 12px">${sp.theLoai.tenTheLoai}</td>
+            <td style="font-size: 12px">${sp.ngonNgu}</td>
+            <td style="font-size: 12px">${sp.moTa}</td>
+            <td>
+                <a class="btn btn-primary btn-sm"
+                   href="suaSanPham.jsp?maSanPhamSua=${sp.maSanPham}">Sửa</a>
+            </td>
         </tr>
     </c:forEach>
 </table>
-
-<button onclick="goToHomePage()">Quay Về Trang Chủ</button>
 
 <!-- Footer -->
 <%@ include file="../footer.jsp"%>
 <!-- End Footer -->
 
 </body>
-<script>
-    function goToHomePage() {
-        window.location.href = 'http://localhost:8080/BookWeb/';
-    }
-</script>
 </html>

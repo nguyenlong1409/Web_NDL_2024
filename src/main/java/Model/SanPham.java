@@ -12,10 +12,10 @@ public class SanPham {
     private TheLoai theLoai;
     private String ngonNgu;
     private String moTa;
+    private String anhSP;
 
 
-
-    public SanPham(){
+    public SanPham() {
 
     }
 
@@ -25,10 +25,11 @@ public class SanPham {
 
     public SanPham(String maSanPham, String tenSanPham, TacGia tacGia,
                    int namXuatBan, double giaNhap, double giaGoc, double giaBan,
-                   double soLuong, TheLoai theLoai , String ngonNgu, String moTa) {
+                   double soLuong, TheLoai theLoai, String ngonNgu, String moTa,
+                   String anhSP) {
         this.maSanPham = maSanPham;
         this.tenSanPham = tenSanPham;
-        this.tacGia= tacGia;
+        this.tacGia = tacGia;
         this.namXuatBan = namXuatBan;
         this.giaNhap = giaNhap;
         this.giaGoc = giaGoc;
@@ -37,8 +38,16 @@ public class SanPham {
         this.theLoai = theLoai;
         this.ngonNgu = ngonNgu;
         this.moTa = moTa;
+        this.anhSP = anhSP;
 
+    }
 
+    public String getAnhSP() {
+        return anhSP;
+    }
+
+    public void setAnhSP(String anhSP) {
+        this.anhSP = anhSP;
     }
 
     public String getMaSanPham() {
@@ -64,22 +73,6 @@ public class SanPham {
     public void setTacGia(TacGia tacGia) {
         this.tacGia = tacGia;
     }
-
-    //    public String getMaTacGia() {
-//        return maTacGia;
-//    }
-//
-//    public void setMaTacGia(String maTacGia) {
-//        this.maTacGia = maTacGia;
-//    }
-
-//    public TacGia getTacGia() {
-//        return tacGia;
-//    }
-
-//    public void setTacGia(TacGia tacGia) {
-//        this.tacGia = tacGia;
-//    }
 
     public int getNamXuatBan() {
         return namXuatBan;
@@ -128,14 +121,6 @@ public class SanPham {
     public void setTheLoai(TheLoai theLoai) {
         this.theLoai = theLoai;
     }
-
-//    public String getMaTheLoai() {
-//        return maTheLoai;
-//    }
-//
-//    public void setMaTheLoai(String maTheLoai) {
-//        this.maTheLoai = maTheLoai;
-//    }
 
     public String getNgonNgu() {
         return ngonNgu;

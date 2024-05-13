@@ -1,7 +1,6 @@
 package database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +14,7 @@ import Model.TheLoai;
 public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
 
     @Override
-    public ArrayList<ChiTietDonHang> selectAll() {
+    public ArrayList<ChiTietDonHang> chonTatCa() {
         ArrayList<ChiTietDonHang> ketQua = new ArrayList<ChiTietDonHang>();
 
         try {
@@ -34,8 +33,8 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
 
             while (rs.next()) {
                 String maChiTietDonHang = rs.getString("machitietdonhang");
-                String donhang = rs.getString("madonhang");
-                String sanpham = rs.getString("masanpham");
+                String madonhang = rs.getString("madonhang");
+                String masanpham = rs.getString("masanpham");
                 double soluong = rs.getDouble("soluong");
                 double giagoc = rs.getDouble("giagoc");
                 double giamgia = rs.getDouble("giamgia");
@@ -43,11 +42,13 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
                 double thuevat = rs.getDouble("thuevat");
                 double tongtien = rs.getDouble("tongtien");
 
-                DonHang dh = new DonHangDAO().selectByID(new DonHang(donhang, null, "", "",
-                        "", "", 0, 0, null, null));
-                SanPham sp = new SanPhamDAO().selectByID(new SanPham("", "", null, 0,
-                        0, 0, 0, 0, new TheLoai(), "", ""));
+                DonHang donhang = new DonHang();
+                donhang.setMaDonHang(madonhang);
 
+                SanPham sanPham = new SanPham();
+                sanPham.setMaSanPham(masanpham);
+                DonHang dh = (new DonHangDAO().chonTheoMa(donhang));
+                SanPham sp = (new SanPhamDAO().chonTheoMa(sanPham));
                 ChiTietDonHang ctdh = new ChiTietDonHang(maChiTietDonHang, dh, sp, soluong, giagoc, giamgia, giaban,
                         thuevat, tongtien);
                 ketQua.add(ctdh);
@@ -64,7 +65,7 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
     }
 
     @Override
-    public ChiTietDonHang selectByID(ChiTietDonHang t) {
+    public ChiTietDonHang chonTheoMa(ChiTietDonHang t) {
         ChiTietDonHang ketQua = null;
         try {
             Connection con = JDBCUtil.getConnection();
@@ -88,10 +89,10 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
                 double thuevat = rs.getDouble("thuevat");
                 double tongtien = rs.getDouble("tongtien");
 
-                DonHang dh = new DonHangDAO().selectByID(new DonHang(donhang, null, "", "",
+                DonHang dh = new DonHangDAO().chonTheoMa(new DonHang(donhang, null, "", "",
                         "", "", 0, 0, null, null));
-                SanPham sp = new SanPhamDAO().selectByID(new SanPham(sanpham, "", null, 0, 0,
-                        0, 0, 0, new TheLoai(), "", ""));
+                SanPham sp = new SanPhamDAO().chonTheoMa(new SanPham(sanpham, "", null, 0, 0,
+                        0, 0, 0, new TheLoai(), "", "", ""));
 
                 ketQua = new ChiTietDonHang(maChiTietDonHang, dh, sp, soluong, giagoc, giamgia, giaban, thuevat,
                         tongtien);
@@ -108,7 +109,7 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
     }
 
     @Override
-    public int insert(ChiTietDonHang t) {
+    public int chenTT(ChiTietDonHang t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -149,13 +150,13 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
     public int insertAll(ArrayList<ChiTietDonHang> arr) {
         int dem = 0;
         for (ChiTietDonHang ChiTietDonHang : arr) {
-            dem += this.insert(ChiTietDonHang);
+            dem += this.chenTT(ChiTietDonHang);
         }
         return dem;
     }
 
     @Override
-    public int delete(ChiTietDonHang t) {
+    public int xoaTT(ChiTietDonHang t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -189,13 +190,13 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
     public int deleteAll(ArrayList<ChiTietDonHang> arr) {
         int dem = 0;
         for (ChiTietDonHang ChiTietDonHang : arr) {
-            dem += this.delete(ChiTietDonHang);
+            dem += this.xoaTT(ChiTietDonHang);
         }
         return dem;
     }
 
     @Override
-    public int update(ChiTietDonHang t) {
+    public int capNhatTT(ChiTietDonHang t) {
         int ketQua = 0;
         try {
             // Bước 1: tạo kết nối đến CSDL
@@ -233,7 +234,7 @@ public class ChiTietDonHangDAO implements DAOInterface<ChiTietDonHang> {
     public static void main(String[] args) {
 
         ChiTietDonHangDAO chiTietDonHangDAO = new ChiTietDonHangDAO();
-        ArrayList<ChiTietDonHang> chiTietDonHangs= chiTietDonHangDAO.selectAll();
+        ArrayList<ChiTietDonHang> chiTietDonHangs= chiTietDonHangDAO.chonTatCa();
         for (ChiTietDonHang chiTietDonHang : chiTietDonHangs) {
             System.out.println(chiTietDonHang);
         }

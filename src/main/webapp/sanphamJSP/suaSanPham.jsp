@@ -1,4 +1,6 @@
-<%@ page import="database.SanPhamDAO" %><%--
+<%@ page import="database.SanPhamDAO" %>
+<%@ page import="Model.SanPham" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: ADMIN
   Date: 5/1/2024
@@ -26,15 +28,18 @@
 <%
     String url1 = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
                  + request.getContextPath();
+
+    String maSanPhamSua = request.getParameter("maSanPhamSua");
+    System.out.println("san pham can sua" + maSanPhamSua);
 %>
 
 <div class="container">
     <div class="text-center"><h3>Thay đổi thông tin sản phẩm</h3></div>
-    <form class="form" action="<%=url1%>/san-pham" method="post">
+    <form class="form" action="<%=url1%>/sua-san-pham" method="post" enctype="multipart/form-data">
         <input type="hidden" name="hanhDongSP" value="thay-doi-san-pham"/>
         <div class="mb-3">
             <label for="maSanPham" class="form-label">Mã sản phẩm</label>
-            <input type="text" class="form-control" id="maSanPham" name="maSanPham" >
+            <input type="text" class="form-control" id="maSanPham" name="maSanPham" value="<%=maSanPhamSua%>">
         </div>
         <div class="mb-3">
             <label for="tenSanPham" class="form-label">Tên sản phẩm</label>
@@ -76,7 +81,10 @@
             <label for="moTa" class="form-label">Mô tả</label>
             <input type="text" class="form-control" id="moTa" name="moTa" >
         </div>
-
+        <div class="mb-3">
+            <label for="anhSP" class="form-label">Ảnh sản phẩm</label>
+            <input type="file" class="form-control" id="anhSP" name="anhSP">
+        </div>
 
         <input class="btn btn-primary form-control" type="submit" value="Lưu thông tin" name="submit" id="submit"/>
     </form>

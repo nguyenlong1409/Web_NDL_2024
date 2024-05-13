@@ -24,37 +24,57 @@
             crossorigin="anonymous"></script>
 </head>
 <body>
-
+<%
+    String urlpage = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+                  + request.getContextPath();
+%>
+<!-- Header-->
+<%@include file="../header.jsp"%>
+<%--<jsp:include page="../header.jsp"></jsp:include>--%>
+<!-- End Header-->
 <h3 style="text-align: center">Kết quả cho ${giaTriTK}</h3>
-<table class="table" style="font-size: 14px; width: 80%; margin: auto;">
-    <thead>
-    <tr>
-        <th>Tên sản phẩm</th>
-        <th>Tác giả</th>
-        <th>Năm xuất bản</th>
-        <th>Giá bán</th>
-        <th>Số lượng</th>
-        <th>Thể loại</th>
-        <th>Mô tả</th>
-    </tr>
-    </thead>
-    <c:forEach items="${requestScope.ketQuaTKTimKiem}" var="sp">
-        <tr>
-            <td><a href="thong-tin?tenSanPham_raw=${sp.tenSanPham}"> ${sp.tenSanPham}</a></td>
-            <td>${sp.tacGia.tenTacGia}</td>
-            <td>${sp.namXuatBan}</td>
-            <td>${sp.giaBan}</td>
-            <td>${sp.soLuong}</td>
-            <td>${sp.theLoai.tenTheLoai}</td>
-            <td>${sp.moTa}</td>
-        </tr>
-    </c:forEach>
-</table>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="list-group">
+                <a href="" class="list-group-item list-group-item-action" aria-current="true">Sách nổi bật</a>
+                <a href="tim-kiem?timkiem=tiểu thuyết" class="list-group-item list-group-item-action">Tiểu thuyết</a>
+                <a href="tim-kiem?timkiem=trinh thám" class="list-group-item list-group-item-action">Trinh thám</a>
+                <a href="tim-kiem?timkiem=VI" class="list-group-item list-group-item-action">Sách tiếng Việt</a>
+                <a href="tim-kiem?timkiem=FL" class="list-group-item list-group-item-action">Foreign Books</a>
+            </div>
+        </div>
+        <div class="col-lg-9">
+            <!-- product -->
+            <div class="row">
+                <c:forEach items="${requestScope.ketQuaTKTimKiem}" var="sp">
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <img src="<%= urlpage%>/image/product/${sp.anhSP}" class="card-img-top" alt="..." height="300px"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="thong-tin?tenSanPham_raw=${sp.tenSanPham}"> ${sp.tenSanPham}</a>
+                                </h5>
+                                <p class="card-text">${sp.moTa}</p>
+                                <p class="card-text">${sp.giaBan}</p>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </div>
+</div>
 
-
+<button onclick="goToHomePage()">Quay Về Trang Chủ</button>
 <!-- Footer -->
 <%@ include file="../footer.jsp"%>
 <!-- End Footer -->
 
 </body>
+<script>
+    function goToHomePage() {
+        window.location.href = 'http://localhost:8080/BookWeb/';
+    }
+</script>
 </html>
